@@ -1,0 +1,111 @@
+Sistema de Gerenciamento de Academia
+
+Página Inicial
+* Carrossel de fotos das aulas
+* Botões:
+  - Aulas 
+  - Agenda
+  - Professores
+  - Contato
+  - Entrar (no SGA)
+
+Página: Aulas
+ - Tabela com planos e preços
+ - Tabela com dias e horários
+ - Lista com modalidades
+
+Página: Agenda
+ - Agenda semanal de aulas
+
+Página: Professores
+ - Foto
+ - Nome
+ - Cor da faixa
+ - Facebook
+ - Instagram
+ - TikTok
+
+Página: Contato
+ - Endereço
+ - Telefone
+ - WhatsApp
+ - Formulário de contato
+
+Página: Entrar
+ - Login
+ - Senha
+ - Botão: Esqueci a senha
+
+
+
+SGA
+Níveis de Usuário:
+ - Admin
+   * Cria | Consulta | Altera | Exclui
+ - Funcionário
+   * Cria | Consulta | Altera
+ - Aluno
+   * Cria | Consulta
+
+
+
+Nível Admin
+ - Cadastro
+   * Usuário (Admin, Funcionários, Alunos)
+   * Contas
+     - Tipo de conta:
+       - Aluguel
+       - Água
+       - Luz
+       - Telefone
+       - Internet
+       - Manutenção
+       - Compras
+       - Fornecedores
+       - Outra
+   * Evento:
+     - Tipo:
+       - Graduações
+       - Campeonatos
+       - Outros
+     - MaisInfo: 
+       - Aluno participante 
+       - Professor participante 
+       - Data e local de realização 
+       - Outras informações
+
+- Relatórios 
+  - Alunos 
+  - Contas 
+  - Compras 
+  - Manutenções 
+  - Entradas e Saídas 
+
+
+
+Nível Aluno
+ - Evento:
+   * Verificar quais graduações, campeonatos ou outros eventos já participou 
+     Retorna uma lista com eventos que o aluno já participou 
+
+   * Solicitar participação na graduação 
+       Ao fazer a solicitação, o aluno deve receber uma mensagem com as informações necessárias
+
+   * Verificar se está agendado para a próxima graduação 
+       Ao clicar nessa opção, retorna uma página de confirmação. 
+       "Parabéns, você está inscrito para a próxima graduação que acontecerá no dia xx/yy/zzzz, demais dados do evento." 
+       ou  
+       "Você não está inscrito na próxima graduação.  
+       Faça sua inscrição ainda hoje e não perca a chance de mudar de Prajed." 
+
+   * Botão: Fazer inscrição. 
+
+- Pagamentos:
+   - Pagamentos realizados
+     * Exibe uma lista de pagamentos realizados pelo aluno
+     * No rodapé mostra os dados para pagamento. 
+
+- Cadastro 
+   - Visualizar cadastro e atualizar cadastro
+
+

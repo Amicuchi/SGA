@@ -1,0 +1,85 @@
+
+*** FRONTEND ***
+****************
+
+A criação do projeto de Frontend foi feita utilizando o Vite.js
+
+    npm create vite@latest
+
+        O Vite é uma ferramenta de construção para front-end, ele provê uma ferramenta de criação muito mais rápida e opinativa pronta para uso.
+        Melhora o tempo de inicio de servidor de desenvolvimento ao primeiro dividir os módulos em uma aplicação em duas categorias: dependências e código-fonte.
+        Uma grande vantagem do vite@latest em relação ao npx create-react-app, por exemplo, é que o vite cria um projeto com o mínimo de estrutura possível, fazendo com que tenhamos um projeto inicialmente mais simples, porém bem mais funcional e disponível para todas as mudanças que o desenvolvedor queira. Por conta dessa instalação mais "enxuta" (por assim dizer), teremos que fazer a instalação das dependências do Node, conforme segue:
+
+    npm install
+
+        O npm é um gerenciador de pacotes do Node (Node Package Manager - npm) onde as dependências para execução de pacote no node são instaladas permitindo a sua execução. Demos npm install no projeto porque precisamos utilizar algumas dependências que ainda não temos acesso e que o arquivo package.
+
+    npm i axios
+
+        O Axios é um biblioteca que permite uma integração do seu projeto React para qualquer serviço de API disponível. Ele é uma biblioteca leve e também uma alternativa para quem usa o fetch api.
+        Ele é uma escolha popular para lidar com a comunicação de dados entre o frontend e o backend em aplicações web, como é o nosso caso.
+
+    npm install styled-components 
+        O Styled-components é uma biblioteca poderosa para estilização de componentes em aplicações React. Com ela, podemos criar componentes estilizados com bastante facilidade e utilizar esses componentes em qualquer lugar do projeto.
+        Isso facilita a reutilização de código, o que diminui a quantidade de linhas de código e complexidade do projeto como um todo.
+        
+        Exemplo do que utilizaremos nos componentes:
+        import styled from 'styled-components'
+        const Container = styled.div``
+        const Button = styled.button``
+    
+    npm install react-router-dom
+        O React Router é uma boa opção para gerenciamento de rotas em projetos React, permitindo uma navegação mais fluída e sem a necessidade de fazer novas solicitações ao servidor. Com ele, podemos criar rotas e a navegação entre as páginas do nosso aplicativo de forma simples e intuitiva.
+
+    npm i antd 
+        O Ant Design é uma biblioteca de componentes de interface de usuário. 
+        Ela oferece uma ampla gama de elementos prontos para uso, como botões, menus, formulários etc.
+
+    npm run dev
+
+
+Estrutura do FrontEnd:
+**********************
+
+frontend
+|- node_modules
+|- public
+|- src
+|  |- assets
+|  |  |- bg.png
+|  |  |- loginImage.png
+|  |  |- logo.png
+|  |  |- welcome.png
+|  |- components
+|  |  |- Bills.jsx
+|  |  |- Events.jsx
+|  |  |- Register.jsx
+|  |  |- UserList.jsx
+|  |  |- Welcome.jsx
+|  |- contexts
+|  |  |- AuthContext.jsx
+|  |- hooks
+|  |  |- useAuth.js
+|  |  |- useFetchUsers.jsx
+|  |  |- useLogin.jsx
+|  |  |- useSignup.jsx
+|  |  |- useUpdateUser.jsx
+|  |  |- useUser.jsx
+|  |- pages
+|  |  |- Dashboard.jsx
+|  |  |- Login.jsx
+|  |- styles
+|  |  |- App.css
+|  |  |- index.css
+|  |  |- Login.css
+|  |  |- Welcome.css
+|  |- App.jsx
+|  |- main.jsx
+|- .eslintrx.cjs
+|- .gitignore
+|- index.html
+|- package-lock.json
+|- package.json
+|- vite.config.js
+
+

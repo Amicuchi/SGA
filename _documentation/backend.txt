@@ -1,0 +1,56 @@
+Estrutura do Backend
+
+backend
+|- controllers
+|  |- authController.js
+|- models
+|  |- userModel.js
+|- node_modules
+|- routes
+|  |- authRoute.js
+|- utils
+|  |- appError.js
+|- .gitignore
+|- index.js
+|- package-lock.json
+|- package.json
+
+
+
+
+npm init
+    Inicializa um novo projeto Node.js criando um arquivo package.json no diretório atual. 
+    Este arquivo contém informações sobre o projeto e suas dependências.
+
+npm i moongose 
+    Instala o Mongoose, uma biblioteca ODM (Object Data Modeling) para MongoDB. 
+    Facilita a interação com o banco de dados MongoDB ao fornecer uma camada de abstração sobre a API do MongoDB.
+    É usado para definir esquemas e modelos de dados e para realizar operações de CRUD (Create, Read, Update, Delete) com MongoDB de forma mais conveniente.
+
+npm i cors 
+    Instala o middleware CORS (Cross-Origin Resource Sharing) para Node.js. 
+    Permite que o servidor defina quais origens externas podem acessar os recursos da API.
+    É utilizado para configurar as permissões de acesso entre diferentes domínios, especialmente importante para APIs que são consumidas por aplicações web de domínios diferentes.
+
+npm i jsonwebtoken 
+    Instala a biblioteca jsonwebtoken, que permite criar e verificar tokens JWT (JSON Web Tokens). 
+    JWTs são usados para autenticação e autorização de usuários.
+    É usado para gerar tokens de acesso, validar a autenticidade de tokens e gerenciar a segurança em sistemas de login.
+
+npm i nodemon
+    Instala o Nodemon, uma ferramenta que monitora as mudanças no código fonte e reinicia automaticamente o servidor Node.js quando alterações são detectadas.
+    Facilita o desenvolvimento, eliminando a necessidade de reiniciar manualmente o servidor sempre que você faz mudanças no código.
+
+
+
+No arquivo package.json, adicionar uma linha no campo scripts:
+
+    "scripts": {
+        "dev": "nodemon src/index.js"
+    },
+
+Para testar o cadastro no BD, no Postman, utilizar a seguinte rota pelo metodo GET:
+
+    http://localhost:3000/api/auth/users
+
+Isso deve retornar um JSON com todos os usuários cadastrados.
