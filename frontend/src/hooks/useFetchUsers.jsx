@@ -10,7 +10,6 @@ const useFetchUsers = () => {
     setLoading(true);
     try {
       const response = await axios.get('http://localhost:3000/api/auth/users');
-      // console.log('API response:', response.data); // Adiciona logging para verificar a resposta
       setUsers(response.data.data.users); 
     } catch (err) {
       setError(err);

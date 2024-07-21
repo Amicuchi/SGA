@@ -11,7 +11,7 @@ const useUpdateUser = () => {
       await axios.put(`http://localhost:3000/api/auth/users/${id}`, userData);
     } catch (err) {
       setError('Erro ao atualizar o usuário');
-      throw err; // Re-throw the error for further handling if needed
+      throw err; // Retorna o erro para tratamento posterior, se necessário.
     } finally {
       setLoading(false);
     }

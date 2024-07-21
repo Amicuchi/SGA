@@ -1,8 +1,60 @@
+import { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom'; // Importa useParams para acessar parâmetros da URL
+import { Alert, Button, Col, Form, Input, message, Row, Spin, Typography } from 'antd';
+import useCreateEvent from '../hooks/useCreateEvent'; // Hook para manipulação de cadastro e edição de usuários
+import useEvent from '../hooks/useCreateEvent'; // Hook para buscar dados do evento a ser editado
+import useUpdateEvent from '../hooks/useUpdateEvent';
+
 const Events = () => {
+
+  const { idEvent } = useParams(); // Obtém o ID do evento da URL, se disponível (usando o hook useParams do react-router-dom)
+  const { loading, error, registerEvent } = useCreateEvent(); // Funções para criar e atualizar evento
+  const { event, loading: eventLoading, fetchEvent } = useEvent(); // Usado para buscar e editar o evento
+  const [form] = Form.useForm(); // Form instance => Formulário do Ant Design
+  const navigate = useNavigate(); // Navegação para redirecionar após a operação
+  const { updateEvent } = useUpdateEvent();
+
+  // Busca dados do evento se estamos editando (baseado no ID)
+  useEffect(() => {
+    if (idEvent) {
+        fetchEvent(idEvent); // Busca o evento se um ID estiver presente
+    }
+}, [idEvent, fetchEvent]);
+
+// Preenche o formulário com dados do evento, se existir
+useEffect(() => {
+    if (event) {
+        form.setFieldsValue(event);
+    }
+}, [event, form]);
+
+// Manipula o envio do formulário para criar ou atualizar o evento
+const handleRegisterEvent = async (values) => {
+    try {
+      if (idEvent) {
+        await updateEvent(idEvent, values); // Atualiza o evento existente
+        message.success('Evento atualizado com sucesso');
+      } else {
+        await registerEvent(values); // Cria um novo evento
+        message.success('Evento criado com sucesso');
+      }
+      navigate('/dashboard/eventList');
+    } catch (err) {
+      message.error('Erro ao salvar o evento');
+    }
+};
+
+// Manipula o botão Limpar
+const handleClear = () => {
+    form.resetFields();  // Limpa o formulário
+};
+
+if (eventLoading) return <Spin />; // Mostra o spinner de carregamento se estiver buscando o usuário
+
   return (
     <div style={{ maxWidth: '800px', margin: 'auto' }}>
             <Typography.Title level={2} strong className='title'>
-                {id ? 'Editar Evento' : 'Cadastro de Evento'}
+                {idEvent ? 'Editar Evento' : 'Cadastro de Evento'}
             </Typography.Title>
 
             <Form 
@@ -18,49 +70,48 @@ const Events = () => {
                     borderRadius: '5px',
                 }}
             >
-                <Row gutter={16}>
-                    <Col span={8}>
-                        <Form.Item
-                            label='Usuário Responsável'
-                            name='role'
-                            rules={[
-                                { required: true, message: 'Insira o Usuário Responsável' }
-                            ]}
-                        >
-                            <Input size="large" placeholder='Usuário Responsável' />
-                        </Form.Item>
-                    </Col>
-                    <Col span={8}>
-                        <Form.Item
-                            name="IdEvent"
-                            label="Id do Evento"
-                            rules={[{ required: true, message: 'Insira a identificação do Evento' }]}
-                        >
-                            <Input size='large' placeholder="Id do Evento" />
-                        </Form.Item>
-                    </Col>
-                    <Col span={8}>
+              <Row gutter={16}>
+                  <Col span={8}>
                       <Form.Item
-                        label='Tipo do Evento'
-                        name='EventType'
+                        label='Usuário Responsável'
+                        name='responsavel'
                         rules={[
-                            { required: true, message: 'Insira o Tipo do Evento' }
+                          { required: true, message: 'Insira o Usuário Responsável' }
                         ]}
-                      > 
-                        <Input size="large" placeholder='Tipo do Evento' />  
+                      >
+                        <Input size="large" placeholder='Usuário Responsável' />
                       </Form.Item>
-                    </Col>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item
+                      name="idEvent"
+                      label="Id do Evento"
+                      rules={[{ required: true, message: 'Insira a identificação do Evento' }]}
+                    >
+                      <Input size='large' placeholder="Id do Evento" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={8}>
+                    <Form.Item
+                      label='Tipo do Evento'
+                      name='eventType'
+                      rules={[
+                        { required: true, message: 'Insira o Tipo do Evento' }
+                      ]}
+                    > 
+                      <Input size="large" placeholder='Tipo do Evento' />  
+                    </Form.Item>
+                  </Col>
                 </Row>
 
                 <Form.Item
                   label='Nome'
-                  name='Nome'
+                  name='nomeEvent'
                   rules={[
                       { required: true, message: 'Insira o Nome do Evento' },
-                      { type: 'email', message: 'Insira um email válido' }
                   ]}
                 >
-                  <Input size="large" placeholder='E-mail' />
+                  <Input size="large" placeholder='Nome do Evento' />
                 </Form.Item>
 
                 <Row gutter={16}>
@@ -69,7 +120,13 @@ const Events = () => {
                       label='Data'
                       name='dataEvento'
                       rules={[
-                        { required: true, message: 'Insira a data' }
+                        { required: true, message: 'Insira a data' },
+                        {
+                          validator: (_, value) =>
+                            value && !isNaN(Date.parse(value))
+                              ? Promise.resolve()
+                              : Promise.reject(new Error('Insira uma data válida'))
+                        }
                       ]}
                     >
                       <Input size="large" placeholder='Data' />
@@ -79,18 +136,14 @@ const Events = () => {
                     <Form.Item
                       label='Horário de Início'
                       name='horarioInicio'
-                      rules={[
-                          { required: true, message: 'Insira o Horário de Início' }
-                      ]}
                     >
-                      <Input.Password size="large" placeholder='Confirmação de senha' />
+                      <Input size="large" placeholder='Horário de Início' />
                     </Form.Item>
                   </Col>
                   <Col span={8}>
                     <Form.Item
                       label="Horário de Fim"
                       name="horarioFim"
-                      rules={[{ required: true, message: 'Insira o Horário de Fim' }]}
                     >
                       <Input placeholder="Horário de Fim" size='large'/>
                     </Form.Item>
@@ -101,14 +154,14 @@ const Events = () => {
                   name="descricao"
                   label="Descrição"
                 >
-                  <Input placeholder="Descrição" size='large'/>
+                  <Input.TextArea placeholder="Descrição" size='large'/>
                 </Form.Item>
 
                 <Form.Item
                   name="maisInformacoes"
                   label="Mais informações"
                 >
-                  <Input placeholder="Mais informações" size='large'/>
+                  <Input.TextArea placeholder="Mais informações" size='large'/>
                 </Form.Item>
 
                 {error && <Alert 

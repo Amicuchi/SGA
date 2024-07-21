@@ -2,9 +2,9 @@ import { useState, useCallback } from 'react';
 import axios from 'axios';
 
 const useUser = () => {
-    const [user, setUser] = useState(null); // Estado para armazenar os dados do usuário
-    const [loading, setLoading] = useState(false); // Estado para carregar os dados
-    const [error, setError] = useState(null); // Estado para armazenar erros
+    const [user, setUser] = useState(null);         // Estado para armazenar os dados do usuário
+    const [loading, setLoading] = useState(false);  // Estado para carregar os dados
+    const [error, setError] = useState(null);       // Estado para armazenar erros
 
     // Função para buscar dados do usuário
     const fetchUser = useCallback(async (id) => {
