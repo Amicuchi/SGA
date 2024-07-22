@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const authRouter = require('./routes/authRoute')
+const eventRouter = require('./routes/eventRoute');
+
 const app = express();
 
 // 1) MIDDLEWARES
@@ -15,7 +17,8 @@ app.use(cors({
 app.use(express.json());
 
 // 2) ROUTE
-app.use('/api/auth', authRouter);
+app.use('/api/auth', authRouter);   // Rota de Usuários
+app.use('/api', eventRouter);       // Rota de Eventos
 
 // 3) MONGO.BD CONNECTION
 mongoose.set('strictQuery', true);

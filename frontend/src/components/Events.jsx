@@ -1,9 +1,15 @@
 import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Importa useParams para acessar parâmetros da URL
-import { Alert, Button, Col, Form, Input, message, Row, Spin, Typography } from 'antd';
+import { Alert, Button, Col, DatePicker, Form, Input, message, Row, Select, Spin, Typography } from 'antd';
 import useCreateEvent from '../hooks/useCreateEvent'; // Hook para manipulação de cadastro e edição de usuários
 import useEvent from '../hooks/useCreateEvent'; // Hook para buscar dados do evento a ser editado
 import useUpdateEvent from '../hooks/useUpdateEvent';
+import dayjs from 'dayjs';
+import { v4 as uuidv4 } from 'uuid';
+
+
+const { TextArea } = Input;
+const { Option } = Select;
 
 const Events = () => {
 
@@ -14,6 +20,16 @@ const Events = () => {
   const navigate = useNavigate(); // Navegação para redirecionar após a operação
   const { updateEvent } = useUpdateEvent();
 
+  // Lista de tipos de evento
+  const eventTypes = [
+    'Aulão', 
+    'Campeonato',
+    'Graduação',
+    'Seminário', 
+    'Viagem',
+    'Workshop'
+  ]; 
+
   // Busca dados do evento se estamos editando (baseado no ID)
   useEffect(() => {
     if (idEvent) {
@@ -23,9 +39,17 @@ const Events = () => {
 
 // Preenche o formulário com dados do evento, se existir
 useEffect(() => {
-    if (event) {
-        form.setFieldsValue(event);
-    }
+  if (event) {
+    form.setFieldsValue({
+      ...event,
+      dataEvento: event.dataEvento ? dayjs(event.dataEvento) : null,
+      idEvento: event.idEvento || uuidv4() // Gerar ID alfanumérico automaticamente se não existir
+    });
+  } else {
+    form.setFieldsValue({
+      idEvento: uuidv4() // Gerar ID alfanumérico automaticamente para novos eventos
+    });
+  }
 }, [event, form]);
 
 // Manipula o envio do formulário para criar ou atualizar o evento
@@ -46,7 +70,8 @@ const handleRegisterEvent = async (values) => {
 
 // Manipula o botão Limpar
 const handleClear = () => {
-    form.resetFields();  // Limpa o formulário
+    form.resetFields();   // Limpa o formulário
+    form.setFieldsValue({ idEvento: uuidv4() });  // Gerar novo ID alfanumérico ao limpar
 };
 
 if (eventLoading) return <Spin />; // Mostra o spinner de carregamento se estiver buscando o usuário
@@ -99,7 +124,32 @@ if (eventLoading) return <Spin />; // Mostra o spinner de carregamento se estive
                         { required: true, message: 'Insira o Tipo do Evento' }
                       ]}
                     > 
-                      <Input size="large" placeholder='Tipo do Evento' />  
+                      {/* <Input size="large" placeholder='Tipo do Evento' />   */}
+                      <Select
+                        size="large"
+                        placeholder='Selecione ou insira o Tipo do Evento'
+                        allowClear
+                        dropdownRender={menu => (
+                          <>
+                            {menu}
+                            <div style={{ display: 'flex', flexWrap: 'nowrap', padding: 8 }}>
+                              <Input style={{ flex: 'auto' }} placeholder="Adicionar novo tipo" onPressEnter={(e) => {
+                                const value = e.target.value;
+                                if (value && !eventTypes.includes(value)) {
+                                  eventTypes.push(value);
+                                  form.setFieldsValue({ tipoEvento: value });
+                                }
+                              }} />
+                            </div>
+                          </>
+                        )}
+                      >
+                        {eventTypes.map(type => (
+                          <Option key={type} value={type}>
+                            {type}
+                          </Option>
+                        ))}
+                      </Select>
                     </Form.Item>
                   </Col>
                 </Row>
@@ -120,7 +170,6 @@ if (eventLoading) return <Spin />; // Mostra o spinner de carregamento se estive
                       label='Data'
                       name='dataEvento'
                       rules={[
-                        { required: true, message: 'Insira a data' },
                         {
                           validator: (_, value) =>
                             value && !isNaN(Date.parse(value))
@@ -129,7 +178,7 @@ if (eventLoading) return <Spin />; // Mostra o spinner de carregamento se estive
                         }
                       ]}
                     >
-                      <Input size="large" placeholder='Data' />
+                      <DatePicker format="DD-MM-YYYY" size="large" placeholder='Data' />
                     </Form.Item>
                   </Col>
                   <Col span={8}>
@@ -154,14 +203,14 @@ if (eventLoading) return <Spin />; // Mostra o spinner de carregamento se estive
                   name="descricao"
                   label="Descrição"
                 >
-                  <Input.TextArea placeholder="Descrição" size='large'/>
+                  <TextArea placeholder="Descrição" size='large' rows={3} />
                 </Form.Item>
 
                 <Form.Item
                   name="maisInformacoes"
                   label="Mais informações"
                 >
-                  <Input.TextArea placeholder="Mais informações" size='large'/>
+                  <TextArea placeholder="Mais informações" size='large' rows={3} />
                 </Form.Item>
 
                 {error && <Alert 

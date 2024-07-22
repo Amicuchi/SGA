@@ -35,6 +35,12 @@ A criação do projeto de Frontend foi feita utilizando o Vite.js
         O Ant Design é uma biblioteca de componentes de interface de usuário. 
         Ela oferece uma ampla gama de elementos prontos para uso, como botões, menus, formulários etc.
 
+    npm i moment
+    
+
+    npm i uuid 
+
+
     npm run dev
 
 
@@ -60,9 +66,12 @@ frontend
 |  |  |- AuthContext.jsx
 |  |- hooks
 |  |  |- useAuth.js
+|  |  |- useCreateEvent.jsx
+|  |  |- useEvent.jsx
 |  |  |- useFetchUsers.jsx
 |  |  |- useLogin.jsx
 |  |  |- useSignup.jsx
+|  |  |- useUpdateEvent.jsx
 |  |  |- useUpdateUser.jsx
 |  |  |- useUser.jsx
 |  |- pages
