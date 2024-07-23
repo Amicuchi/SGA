@@ -3,7 +3,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
-import useFetchEvent from '../hooks/useFetchevent';
+import useFetchEvent from '../hooks/useFetchEvent';
 
 const EventList = () => {
   const navigate = useNavigate();
