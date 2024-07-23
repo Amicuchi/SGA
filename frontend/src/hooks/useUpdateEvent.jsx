@@ -9,9 +9,10 @@ const useUpdateEvent = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.put(`http://localhost:3000/api/auth/events/${idEvent}`, eventData);
+      const response = await axios.put(`/api/events/${idEvent}`, eventData);
       return response.data;
     } catch (err) {
+      console.error('Error updating event:', err); // Adiciona logging de erro
       setError(err.response ? err.response.data : 'Erro ao atualizar evento');
       throw err;
     } finally {

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import './styles/App.css';
 import useAuth from './hooks/useAuth';
 
-import Login from './pages/Login';             // Página de Login
+import Login from './pages/Login';            // Página de Login
 import Dashboard from './pages/Dashboard';    // Dashboard
 
 // Importação das páginas da aplicação

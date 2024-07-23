@@ -1,26 +1,37 @@
 const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
-    title: {
+    responsavel: {
         type: String,
-        required: [true, 'O título do evento é obrigatório'],
+        required: [true, 'O usuário responsável pelo evento é obrigatório'],
     },
-    description: {
+    idEvent: {
         type: String,
-        required: [true, 'A descrição do evento é obrigatória'],
+        required: [true, 'O identificador do evento é obrigatória'],
     },
-    date: {
+    eventType: {
+        type: String,
+        required: [true, 'O tipo do evento é obrigatório'],
+    },
+    nomeEvent: {
+        type: String,
+        required: [true, 'O nome do evento é obrigatório'],
+    },
+    dataEvento: {
         type: Date,
         required: [true, 'A data do evento é obrigatória'],
     },
-    location: {
+    horarioInicio: {
         type: String,
-        required: [true, 'A localização do evento é obrigatória'],
     },
-    createdBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
+    horarioFim: {
+        type: String,
+    },
+    descricao: {
+        type: String,
+    },
+    maisInformacoes: {
+        type: String,
     },
 });
 

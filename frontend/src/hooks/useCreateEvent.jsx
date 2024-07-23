@@ -12,6 +12,7 @@ const useCreateEvent = () => {
       const response = await axios.post('/api/events', eventData);
       return response.data;
     } catch (err) {
+      console.error('Error creating event:', err); // Adiciona logging de erro
       setError(err.response ? err.response.data : 'Erro ao criar evento');
       throw err;
     } finally {

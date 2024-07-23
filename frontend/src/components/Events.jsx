@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'; // Importa useParams para acessar parâmetros da URL
 import { Alert, Button, Col, DatePicker, Form, Input, message, Row, Select, Spin, Typography } from 'antd';
 import useCreateEvent from '../hooks/useCreateEvent'; // Hook para manipulação de cadastro e edição de usuários
-import useEvent from '../hooks/useCreateEvent'; // Hook para buscar dados do evento a ser editado
+import useEvent from '../hooks/useEvent'; // Hook para buscar dados do evento a ser editado
 import useUpdateEvent from '../hooks/useUpdateEvent';
 import dayjs from 'dayjs';
 import { v4 as uuidv4 } from 'uuid';
@@ -171,6 +171,7 @@ if (eventLoading) return <Spin />; // Mostra o spinner de carregamento se estive
                       name='dataEvento'
                       rules={[
                         {
+                          required: true, message: 'Insira o Nome do Evento',
                           validator: (_, value) =>
                             value && !isNaN(Date.parse(value))
                               ? Promise.resolve()
