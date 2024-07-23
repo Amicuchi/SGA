@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import axios from 'axios';
 
 const useEvent = () => {
-  const [event, setEvent] = useState(null);          // Estado para armazenar os dados do usuário
+  const [event, setEvent] = useState(null);          // Estado para armazenar os dados do evento
   const [loading, setLoading] = useState(false);     // Estado para carregar os dados
   const [error, setError] = useState(null);          // Estado para armazenar erros
 
@@ -11,7 +11,7 @@ const useEvent = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`http://localhost:3000/api/auth/events/${idEvent}`);
+      const response = await axios.get(`http://localhost:3000/api/events/${idEvent}`);
       setEvent(response.data);
     } catch (err) {
       setError(err.response ? err.response.data : 'Erro ao buscar evento');

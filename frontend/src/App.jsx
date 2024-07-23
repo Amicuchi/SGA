@@ -10,6 +10,7 @@ import Register from './components/Register'; // Cadastro e Atualização de usu
 import UserList from './components/UserList'; // Listagem de Usuários cadastrados
 import Bills from './components/Bills';       // Página de Cadastro de Contas
 import Events from './components/Events';     // Página de Cadastro de Eventos
+import EventList from './components/EventsList';  // Listagem de Eventos cadastrados
 
 function App() {
   const { isAuthenticated } = useAuth
@@ -25,8 +26,12 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="edit/:id" element={<Register />} />
             <Route path="userList" element={<UserList />} />
+            
             <Route path="bills" element={<Bills />} />
+
             <Route path="events" element={<Events />} />
+            <Route path="edit-event/:id" element={<Events />} />
+            <Route path="eventsList" element={<EventList />} />
         </Route>
       </Routes>
       </div>
